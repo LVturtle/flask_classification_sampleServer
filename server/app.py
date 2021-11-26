@@ -127,8 +127,9 @@ def modelTrain():
         try:
             imagePath = request.get_json()['path']
 
-            result = train.delay(imagePath)
+            result, train_information = train.delay(imagePath)
             print(result)
+            print(train_information)
 
             return {'success': True, 'msg': '학습 요청을 완료했습니다.', 'job_id': str(result)}
         except Exception as e:

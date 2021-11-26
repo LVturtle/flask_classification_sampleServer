@@ -89,7 +89,7 @@ def train(self, imagePath):
 
         train_information_rd_get=json.loads(rd.get("train_information"))
 
-        return {'success': True}
+        return {'success': True}, train_information_rd_get
     except Exception as e:
         self.retry(countdown=5, exc=e)
         f = open(os.path.join('../models', directoryName, 'error.txt'), 'w')
