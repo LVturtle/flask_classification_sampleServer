@@ -10,6 +10,7 @@ from asyncFlask.job import train
 import shutil
 import random
 import json
+import redis
 
 os.chdir('/app/server')
 
@@ -20,6 +21,8 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # 한글 깨짐 해결 설정
 app.config['JSON_AS_ASCII'] = False
+
+rd = redis.StrictRedis(host='redis', port=6379, db=0)
 
 def parsePredict(classes, scores, conf):
     result = []
@@ -128,9 +131,9 @@ def modelTrain():
         try:
             imagePath = request.get_json()['path']
 
-            result, train_information = train.delay(imagePath)
+            result = train.delay(imagePath)
             print(result)
-            train_information_json=json.loads(train_information)
+            train_information_json=json.loads(rd.get("train_information"))
             print(train_information_json)
 
             return {'success': True, 'msg': '학습 요청을 완료했습니다.', 'job_id': str(result)}
