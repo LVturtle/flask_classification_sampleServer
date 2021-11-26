@@ -121,7 +121,7 @@ def modelInfo():
         except Exception as e:
             return {'success': False}
 
-@app.route('/api/train', methods=['POST'])
+@app.route('/api/train', methods=['GET', 'POST'])
 def modelTrain():
     if request.method == 'POST':
         try:
