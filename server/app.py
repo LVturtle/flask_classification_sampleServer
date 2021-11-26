@@ -9,6 +9,7 @@ from flask_cors import CORS
 from asyncFlask.job import train
 import shutil
 import random
+import json
 
 os.chdir('/app/server')
 
@@ -129,7 +130,8 @@ def modelTrain():
 
             result, train_information = train.delay(imagePath)
             print(result)
-            print(train_information)
+            #train_information_json=json.loads(train_information)
+            train_information
 
             return {'success': True, 'msg': '학습 요청을 완료했습니다.', 'job_id': str(result)}
         except Exception as e:
