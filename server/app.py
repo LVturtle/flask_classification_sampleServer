@@ -130,8 +130,8 @@ def modelTrain():
 
             result, train_information = train.delay(imagePath)
             print(result)
-            #train_information_json=json.loads(train_information)
-            train_information
+            train_information_json=json.loads(train_information)
+            print(train_information_json)
 
             return {'success': True, 'msg': '학습 요청을 완료했습니다.', 'job_id': str(result)}
         except Exception as e:
